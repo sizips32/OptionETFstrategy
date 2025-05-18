@@ -307,10 +307,10 @@ cross_dead = (df['SMA20'] < df['SMA50']) & (df['SMA20'].shift(1) >= df['SMA50'].
 # 추세(Trend)
 st.markdown('## 📈 추세(Trend)')
 st.subheader('이동평균선 & 캔들차트')
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, use_container_width=True, key="main_price_chart")
 
 st.subheader('Bollinger Bands')
-st.plotly_chart(bb_fig, use_container_width=True)
+st.plotly_chart(bb_fig, use_container_width=True, key="bollinger_band_chart")
 with st.expander("Bollinger Bands 해석 및 신호 설명"):
     price = df[pt].dropna().iloc[-1]
     upper = bb_upper.dropna().iloc[-1]
@@ -331,7 +331,7 @@ with st.expander("이동평균선(20/50) 교차 신호 해석"):
     else:
         st.markdown("**중립 확률 높음**: 최근 교차 신호가 없습니다.")
 st.subheader('MACD')
-st.plotly_chart(macd_fig, use_container_width=True)
+st.plotly_chart(macd_fig, use_container_width=True, key="macd_chart_1")
 with st.expander("MACD 해석 및 신호 설명"):
     macd = df['MACD'].dropna().iloc[-1]
     signal = df['MACD_signal'].dropna().iloc[-1]
@@ -345,8 +345,8 @@ with st.expander("MACD 해석 및 신호 설명"):
 # 모멘텀(Momentum)
 st.markdown('## ⚡️ 모멘텀(Momentum)')
 st.subheader('MACD Histogram & Squeeze Momentum')
-st.plotly_chart(macd_fig, use_container_width=True)
-st.plotly_chart(sq_fig, use_container_width=True)
+st.plotly_chart(macd_fig, use_container_width=True, key="macd_chart_2")
+st.plotly_chart(sq_fig, use_container_width=True, key="squeeze_momentum_chart")
 with st.expander("Squeeze Momentum 해석 및 신호 설명"):
     mom = df['squeeze_mom'].dropna().iloc[-1]
     squeeze = df['squeeze_on'].iloc[-1]
@@ -359,7 +359,7 @@ with st.expander("Squeeze Momentum 해석 및 신호 설명"):
     else:
         st.markdown("**중립 확률 높음**: 모멘텀이 0에 가깝습니다.")
 st.subheader('Stochastic Oscillator')
-st.plotly_chart(stoch_fig, use_container_width=True)
+st.plotly_chart(stoch_fig, use_container_width=True, key="stochastic_chart")
 with st.expander("Stochastic Oscillator 해석 및 신호 설명"):
     k = df['%K'].dropna().iloc[-1]
     d = df['%D'].dropna().iloc[-1]
@@ -400,7 +400,7 @@ vol_fig = go.Figure()
 vol_fig.add_trace(go.Bar(x=df.index, y=df["Volume"], name="거래량", marker_color="#b0b0b0"))
 vol_fig.add_trace(go.Scatter(x=df.index, y=df["VOL_MA20"], mode="lines", name="20일 거래량 이동평균", line=dict(color="orange")))
 vol_fig.update_layout(showlegend=True)
-st.plotly_chart(vol_fig, use_container_width=True)
+st.plotly_chart(vol_fig, use_container_width=True, key="volume_chart")
 st.subheader('MFI(20)')
 st.line_chart(df["MFI20"])
 with st.expander("MFI(20) 해석 및 신호 설명"):
