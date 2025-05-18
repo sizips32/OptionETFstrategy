@@ -1,4 +1,8 @@
 import streamlit as st
+st.set_page_config(
+  page_title="금융분석 대시보드",
+  page_icon="🪙"
+)
 import pandas as pd
 import plotly.graph_objs as go
 import FinanceDataReader as fdr
